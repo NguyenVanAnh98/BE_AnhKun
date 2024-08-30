@@ -1,11 +1,15 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.TinhTien;
+import com.example.demo.model.dto.req.TinhTienRequestDTO;
 import com.example.demo.service.ITinhTienService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,8 +37,9 @@ public class TinhTienController {
 
     // Tạo mới hoặc cập nhật một TinhTien
     @PostMapping("/save")
-    public TinhTien saveOrUpdateTinhTien(@RequestBody TinhTien tinhTien) {
-        return tinhTienService.saveOrUpdateTinhTien(tinhTien);
+    public ResponseEntity<List<TinhTien>> saveOrUpdateTinhTien(@RequestBody List<TinhTienRequestDTO> tinhTienRequestDTO) {
+        tinhTienService.saveOrUpdateTinhTien(tinhTienRequestDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     // Xóa một TinhTien theo ID
