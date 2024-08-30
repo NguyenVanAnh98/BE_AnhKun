@@ -26,13 +26,10 @@ public class TinhTien {
     private Double thanhtienSBo;
 
     private Integer anThuaKhachHang;
-    private Double thanhtienAnThua;
 
     private Integer coBanhKhachHang;
-    private Double thanhtienCoBanh;
 
     private Integer coGameKhachHang;
-    private Double thanhtienCoGame;
 
     private Double tongCongBanh;
     private Integer tiSoKhachHang;
@@ -41,19 +38,14 @@ public class TinhTien {
     private Integer tienGopTuan;
     private Double tongCongKhachHang;
     private Double tongCongCty;
-    private Double thanhtienNguoiTheo;
 
     private Double comm;
-    @ManyToOne
-    @JoinColumn(name = "nguoi_theo_id", referencedColumnName = "id")
-    private NguoiTheo nguoiTheo;  // NguoiTheo liên quan
+
 
     @ManyToOne
     @JoinColumn(name = "khachhang_id", referencedColumnName = "id")
     private KhachHang khachHang;  // Cách tính tiền có một khách hàng
-    @ManyToOne
-    @JoinColumn(name = "loai_id", referencedColumnName = "id")
-    private Loai loai;  // Tham chiếu đến loại IBET
+
 
 
 }

@@ -8,20 +8,18 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class TinhTienRequestDTO {
-
-    private LocalDate ngayDauTuan;
-    private LocalDate ngayCuoiTuan;
-    private Double tiGiaTuan;
-    private Integer anThuaKhachHang;
-    private Integer coBanhKhachHang;
-    private Integer coGameKhachHang;
-    private Integer tiSoKhachHang;
-    private Integer soDeKhachHang;
-    private Integer tienUngKhachHang;
-    private Integer tienGopTuan;
-    private Long nguoiTheoId;
-    private Long khachHangId;
-    private Long loaiId;
+    private Long id;
+    private Integer anThua;
+    private Integer coBanh;
+    private Integer coGame;
+    private Integer tiSo;
+    private Integer soDe;
+    private Integer tienUng;
+    private Integer tienGop;
+    private Long idKH;
     private Double comm;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private Integer tyGiaTuan;
 
 }
