@@ -8,11 +8,13 @@ import com.example.demo.model.dto.res.NguoiTheoDetailResponseDTO;
 import com.example.demo.model.dto.res.NguoiTheoResponseDTO;
 import com.example.demo.service.INguoiTheoService;
 import com.example.demo.service.TheoXuKhachService;
+import com.example.demo.service.TinhTienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,6 +28,8 @@ public class NguoiTheoController {
     private INguoiTheoService nguoiTheoService;
     @Autowired
     private TheoXuKhachService theoXuKhachService;
+    @Autowired
+    private TinhTienService tinhTienService;
 
     @PostMapping
     public ResponseEntity<NguoiTheoResponseDTO> createNguoiTheo(@RequestBody NguoiTheoRequestDTO requestDTO) {
@@ -88,6 +92,7 @@ public class NguoiTheoController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(responseDTOList); // Trả về 200 OK với danh sách người theo
     }
+
     @GetMapping("/{id}/detail")
     public ResponseEntity<NguoiTheoDetailResponseDTO> getNguoiTheoDetail(@PathVariable Long id) {
         // Tìm kiếm NguoiTheo dựa trên id
@@ -102,9 +107,19 @@ public class NguoiTheoController {
         List<TheoXuKhach> theoXuKhachList = theoXuKhachService.findAllByIdNguoiTheo(id);
 
         // Chuyển đổi sang danh sách KhachHangDTO với thông tin số lượng XuTheo
-        List<KhachHangDTO> khachHangDTOList = theoXuKhachList.stream()
-                .map(theoXuKhach -> new KhachHangDTO(theoXuKhach.getKhachHang().getName(), theoXuKhach.getXuTheo()))
-                .collect(Collectors.toList());
+//        List<KhachHangDTO> khachHangDTOList = theoXuKhachList.stream()
+//                .map(theoXuKhach -> new KhachHangDTO(theoXuKhach.getKhachHang().getName(), theoXuKhach.getXuTheo(), theoXuKhach.getKhachHang().getLoai().getId(), theoXuKhach.getKhachHang().getId()))
+//                .collect(Collectors.toList());
+        List<KhachHangDTO> khachHangDTOList = new ArrayList<>();
+        for (TheoXuKhach theoXuKhach : theoXuKhachList) {
+            KhachHangDTO kh = new KhachHangDTO();
+            kh.setName(theoXuKhach.getKhachHang().getName());
+            kh.setXuTheo(theoXuKhach.getXuTheo());
+            kh.setLoai(theoXuKhach.getKhachHang().getLoai());
+            kh.setIdKhach(theoXuKhach.getKhachHang().getId());
+            kh.setTinhtien(tinhTienService.findAllTinhTienByKhachHang(theoXuKhach.getKhachHang().getId()));
+            khachHangDTOList.add(kh);
+        }
 
         // Tạo đối tượng DTO để trả về thông tin chi tiết NguoiTheo và danh sách KhachHangDTO
         NguoiTheoDetailResponseDTO responseDTO = new NguoiTheoDetailResponseDTO(nguoiTheo, khachHangDTOList);

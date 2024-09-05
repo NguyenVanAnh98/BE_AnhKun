@@ -2,20 +2,21 @@ package com.example.demo.service;
 
 import com.example.demo.model.KhachHang;
 import com.example.demo.model.TinhTien;
+import com.example.demo.model.dto.TinhTienDTO;
 import com.example.demo.model.dto.req.TinhTienRequestDTO;
 import com.example.demo.repository.IKhachHangRepository;
-import com.example.demo.repository.ITinhTienRepository;
 
+import com.example.demo.repository.ITinhTienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TinhTienService implements ITinhTienService {
-
     @Autowired
     private ITinhTienRepository tinhTienRepository;
     @Autowired
@@ -34,7 +35,7 @@ public class TinhTienService implements ITinhTienService {
     @Override
     public List<TinhTien> saveOrUpdateTinhTien(List<TinhTienRequestDTO> tinhTienRequestDTO1) {
         List<TinhTien> tinhTien1 = tinhTienRepository.findAll();
-        for (TinhTienRequestDTO tinhTienRequestDTO : tinhTienRequestDTO1){
+        for (TinhTienRequestDTO tinhTienRequestDTO : tinhTienRequestDTO1) {
             TinhTien tinhTien = new TinhTien();
             tinhTien.setNgayDauTuan(tinhTienRequestDTO.getStartDate());
             tinhTien.setNgayCuoiTuan(tinhTienRequestDTO.getEndDate());
@@ -61,15 +62,15 @@ public class TinhTienService implements ITinhTienService {
             tinhTien.setTienGopTuan(tinhTienRequestDTO.getTienGop());
             tinhTien.setTongCongKhachHang(Double.valueOf(
                     tinhTien.getTongCongBanh() +
-                            tinhTienRequestDTO.getTienGop()+
-                            tinhTienRequestDTO.getTienUng()+
-                            tinhTienRequestDTO.getSoDe()+
+                            tinhTienRequestDTO.getTienGop() +
+                            tinhTienRequestDTO.getTienUng() +
+                            tinhTienRequestDTO.getSoDe() +
                             tinhTienRequestDTO.getTiSo()
             ));
             tinhTien.setComm(tinhTienRequestDTO.getComm());
             tinhTien.setTongCongCty(Double.valueOf(
-                    (tinhTienRequestDTO.getComm()+tinhTienRequestDTO.getAnThua())*
-                            tinhTienRequestDTO.getTyGiaTuan() * khachHang.getLoai().getPhanTram()/100
+                    (tinhTienRequestDTO.getComm() + tinhTienRequestDTO.getAnThua()) *
+                            tinhTienRequestDTO.getTyGiaTuan() * khachHang.getLoai().getPhanTram() / 100
             ));
             tinhTienRepository.save(tinhTien);
             tinhTien1.add(tinhTien);
@@ -81,5 +82,33 @@ public class TinhTienService implements ITinhTienService {
     @Override
     public void deleteTinhTien(Long id) {
         tinhTienRepository.deleteById(id);
+    }
+
+    @Override
+    public List<TinhTienDTO> findAllTinhTienByKhachHang(Long id) {
+        KhachHang khachHang = khachHangRepository.findById(id).get();
+        List<TinhTien> tinhTiens = tinhTienRepository.findTinhTienByKhachHang(khachHang);
+        List<TinhTienDTO> tinhTienDTOS = new ArrayList<>();
+        for (TinhTien tinhTien : tinhTiens) {
+            TinhTienDTO t = new TinhTienDTO();
+            t.setNgayDauTuan(tinhTien.getNgayDauTuan());
+            t.setNgayCuoiTuan(tinhTien.getNgayCuoiTuan());
+            t.setTyGiaTuan(tinhTien.getTyGiaTuan());
+            t.setThanhtienIBet(tinhTien.getThanhtienIBet());
+            t.setThanhtienSBo(tinhTien.getThanhtienSBo());
+            t.setAnThuaKhachHang(tinhTien.getAnThuaKhachHang());
+            t.setCoBanhKhachHang(tinhTien.getCoBanhKhachHang());
+            t.setCoGameKhachHang(tinhTien.getCoGameKhachHang());
+            t.setTongCongBanh(tinhTien.getTongCongBanh());
+            t.setTiSoKhachHang(tinhTien.getTiSoKhachHang());
+            t.setSoDeKhachHang(tinhTien.getSoDeKhachHang());
+            t.setTienUngKhachHang(tinhTien.getTienUngKhachHang());
+            t.setTienGopTuan(tinhTien.getTienGopTuan());
+            t.setTongCongKhachHang(tinhTien.getTongCongKhachHang());
+            t.setTongCongCty(tinhTien.getTongCongCty());
+            t.setComm(tinhTien.getComm());
+            tinhTienDTOS.add(t);
+        }
+        return tinhTienDTOS;
     }
 }

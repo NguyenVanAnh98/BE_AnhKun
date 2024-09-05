@@ -39,8 +39,12 @@ public class KhachHang {
     private Integer giaGame;
 
 
+
+
     @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TheoXuKhach> theoXuKhachs;
+
+
 
 
 }

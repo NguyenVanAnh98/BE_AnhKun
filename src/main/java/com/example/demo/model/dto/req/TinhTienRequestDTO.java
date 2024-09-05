@@ -1,12 +1,16 @@
 package com.example.demo.model.dto.req;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@AutoConfiguration
+@NoArgsConstructor
 public class TinhTienRequestDTO {
     private Long id;
     private Integer anThua;
