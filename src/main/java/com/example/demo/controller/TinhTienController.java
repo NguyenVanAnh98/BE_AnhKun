@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.model.TinhTien;
 import com.example.demo.model.dto.req.TinhTienRequestDTO;
+import com.example.demo.model.dto.res.KhachHangResponseDTO;
 import com.example.demo.service.ITinhTienService;
+import com.example.demo.service.KhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ public class TinhTienController {
 
     @Autowired
     private ITinhTienService tinhTienService;
+    @Autowired
+    private KhachHangService khachHangService;
 
     // Lấy danh sách tất cả các TinhTien
     @GetMapping("/all")
@@ -48,4 +52,5 @@ public class TinhTienController {
         tinhTienService.deleteTinhTien(id);
         return ResponseEntity.noContent().build();
     }
+
 }

@@ -1,9 +1,13 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.KhachHang;
 import com.example.demo.model.TinhTien;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.List;
+
+
 public interface ITinhTienRepository extends JpaRepository<TinhTien, Long> {
+    List<TinhTien> findTinhTienByKhachHang(KhachHang khachHang);
 }
