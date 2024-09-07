@@ -14,5 +14,6 @@ public interface INguoiTheoService {
         List<NguoiTheo> findAll();
 
         void deleteById(Long id);
+
     }
 

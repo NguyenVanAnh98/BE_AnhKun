@@ -111,4 +111,9 @@ public class TinhTienService implements ITinhTienService {
         }
         return tinhTienDTOS;
     }
+
+    @Override
+    public TinhTien findTienConlaiByKhachHangId(Long id) {
+        return tinhTienRepository.findTopByKhachHangId(id);
+    }
 }

@@ -45,6 +45,11 @@ public class TinhTienController {
         tinhTienService.saveOrUpdateTinhTien(tinhTienRequestDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @GetMapping("/{id}/kh")
+    public ResponseEntity<TinhTien> getKhachHangTinhTien(@PathVariable Long id){
+        TinhTien tinhTien =  tinhTienService.findTienConlaiByKhachHangId(id);
+        return ResponseEntity.ok(tinhTien);
+    }
 
     // Xóa một TinhTien theo ID
     @DeleteMapping("/delete/{id}")
