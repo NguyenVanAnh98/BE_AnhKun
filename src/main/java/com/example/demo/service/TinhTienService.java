@@ -111,4 +111,11 @@ public class TinhTienService implements ITinhTienService {
         }
         return tinhTienDTOS;
     }
+
+    @Override
+    public TinhTienDTO findTopTinhTienByKhachHangid(Long id) {
+        return tinhTienRepository.findTopDTOByKhachHangId(id);
+    }
+
+
 }

@@ -21,8 +21,7 @@ public class KhachHangDTO {
     private Long idKhach;
     private List<TinhTienDTO> tinhtien;
 
-    public void setTinhtien(List<TinhTienDTO> allTinhTienByKhachHang) {
-    }
+
 
 
     // Constructor

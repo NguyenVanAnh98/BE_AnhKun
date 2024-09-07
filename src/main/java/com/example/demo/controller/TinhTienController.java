@@ -52,5 +52,10 @@ public class TinhTienController {
         tinhTienService.deleteTinhTien(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("{id}/kh")
+    public ResponseEntity<?> findTopTinhTinhByKhId(@PathVariable Long id){
+
+        return new ResponseEntity<>(tinhTienService.findTopTinhTienByKhachHangid(id),HttpStatus.OK);
+    }
 
 }

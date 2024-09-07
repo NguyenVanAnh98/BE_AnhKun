@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.NguoiTheo;
 import com.example.demo.model.TinhTien;
 import com.example.demo.model.dto.TinhTienDTO;
 import com.example.demo.model.dto.req.TinhTienRequestDTO;
@@ -17,4 +18,5 @@ public interface ITinhTienService {
 
     void deleteTinhTien(Long id);
     List<TinhTienDTO> findAllTinhTienByKhachHang(Long id);
+    TinhTienDTO findTopTinhTienByKhachHangid(Long id);
 }

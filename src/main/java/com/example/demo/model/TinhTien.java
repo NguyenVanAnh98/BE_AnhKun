@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,9 +41,8 @@ public class TinhTien {
     private Integer tienGopTuan;
     private Double tongCongKhachHang;
     private Double tongCongCty;
-//    private Integer tienCu;
-//    private Integer chungChi;
-//    private Integer conLai;
+    private Integer chungChi;
+    private Integer conLai;
 
 
     private Double comm;
