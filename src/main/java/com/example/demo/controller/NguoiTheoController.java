@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.model.NguoiTheo;
 import com.example.demo.model.TheoXuKhach;
+import com.example.demo.model.TinhTien;
 import com.example.demo.model.dto.KhachHangDTO;
+import com.example.demo.model.dto.TinhTienDTO;
 import com.example.demo.model.dto.req.NguoiTheoRequestDTO;
 import com.example.demo.model.dto.res.NguoiTheoDetailResponseDTO;
 import com.example.demo.model.dto.res.NguoiTheoResponseDTO;
@@ -14,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -93,8 +96,8 @@ public class NguoiTheoController {
         return ResponseEntity.ok(responseDTOList); // Trả về 200 OK với danh sách người theo
     }
 
-    @GetMapping("/{id}/detail")
-    public ResponseEntity<NguoiTheoDetailResponseDTO> getNguoiTheoDetail(@PathVariable Long id) {
+    @GetMapping("/{id}/detail/{date}")
+    public ResponseEntity<NguoiTheoDetailResponseDTO> getNguoiTheoDetail(@PathVariable Long id, @PathVariable LocalDate date) {
         // Tìm kiếm NguoiTheo dựa trên id
         Optional<NguoiTheo> nguoiTheoOptional = nguoiTheoService.findById(id);
         if (!nguoiTheoOptional.isPresent()) {
@@ -106,19 +109,29 @@ public class NguoiTheoController {
         // Lấy danh sách TheoXuKhach dựa trên id của NguoiTheo
         List<TheoXuKhach> theoXuKhachList = theoXuKhachService.findAllByIdNguoiTheo(id);
 
-        // Chuyển đổi sang danh sách KhachHangDTO với thông tin số lượng XuTheo
-//        List<KhachHangDTO> khachHangDTOList = theoXuKhachList.stream()
-//                .map(theoXuKhach -> new KhachHangDTO(theoXuKhach.getKhachHang().getName(), theoXuKhach.getXuTheo(), theoXuKhach.getKhachHang().getLoai().getId(), theoXuKhach.getKhachHang().getId()))
-//                .collect(Collectors.toList());
         List<KhachHangDTO> khachHangDTOList = new ArrayList<>();
+
         for (TheoXuKhach theoXuKhach : theoXuKhachList) {
-            KhachHangDTO kh = new KhachHangDTO();
-            kh.setName(theoXuKhach.getKhachHang().getName());
-            kh.setXuTheo(theoXuKhach.getXuTheo());
-            kh.setLoai(theoXuKhach.getKhachHang().getLoai());
-            kh.setIdKhach(theoXuKhach.getKhachHang().getId());
-            kh.setTinhtien(tinhTienService.findAllTinhTienByKhachHang(theoXuKhach.getKhachHang().getId()));
-            khachHangDTOList.add(kh);
+            // Lấy danh sách TinhTien cho khách hàng
+            List<TinhTienDTO> tinhTienList = tinhTienService.findAllTinhTienByKhachHang(theoXuKhach.getKhachHang().getId());
+
+            // Lọc ra các TinhTien có ngayDauTuan bằng date
+            List<TinhTienDTO> filteredTinhTienList = tinhTienList.stream()
+                    .filter(tinhTien -> tinhTien.getNgayDauTuan().equals(date))
+                    .collect(Collectors.toList());
+
+            // Nếu có dữ liệu hợp lệ, tạo KhachHangDTO
+            if (!filteredTinhTienList.isEmpty()) {
+                KhachHangDTO kh = new KhachHangDTO();
+                kh.setName(theoXuKhach.getKhachHang().getName());
+                kh.setGiaBanh(theoXuKhach.getKhachHang().getGiaBanh());
+                kh.setGiaGame(theoXuKhach.getKhachHang().getGiaGame());
+                kh.setGiaDo(theoXuKhach.getKhachHang().getGiaDo());
+                kh.setXuTheo(theoXuKhach.getXuTheo());
+                kh.setLoai(theoXuKhach.getKhachHang().getLoai());
+                kh.setTinhtien(filteredTinhTienList); // Lưu danh sách TinhTien đã lọc
+                khachHangDTOList.add(kh);
+            }
         }
 
         // Tạo đối tượng DTO để trả về thông tin chi tiết NguoiTheo và danh sách KhachHangDTO

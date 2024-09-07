@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.KhachHang;
 
+import com.example.demo.model.TinhTien;
 import com.example.demo.model.dto.res.KhachHangResponseDTO;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface IKhachHangService {
         List<KhachHang> findAll();
         void deleteById(Long id);
        List<KhachHangResponseDTO> findKhachHangByLoai (String loai);
+
 }

@@ -38,9 +38,8 @@ public class TinhTien {
     private Integer tienGopTuan;
     private Double tongCongKhachHang;
     private Double tongCongCty;
-//    private Integer tienCu;
-//    private Integer chungChi;
-//    private Integer conLai;
+    private Integer chungChi;
+    private Integer conLai;
 
 
     private Double comm;

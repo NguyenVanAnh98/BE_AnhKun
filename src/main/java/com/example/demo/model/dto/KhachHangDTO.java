@@ -18,10 +18,11 @@ public class KhachHangDTO {
     private String name;
     private Integer xuTheo;
     private Loai loai;
-    private Long idKhach;
+    private Integer giaDo;
+    private Integer giaBanh;
+    private Integer giaGame;
     private List<TinhTienDTO> tinhtien;
 
-    public void setTinhtien(List<TinhTienDTO> allTinhTienByKhachHang) {
     }
 
 
@@ -47,5 +48,5 @@ public class KhachHangDTO {
 //    public void setXuTheo(Integer xuTheo) {
 //        this.xuTheo = xuTheo;
 //    }
-}
+
 

@@ -17,4 +17,5 @@ public interface ITinhTienService {
 
     void deleteTinhTien(Long id);
     List<TinhTienDTO> findAllTinhTienByKhachHang(Long id);
+    TinhTien findTienConlaiByKhachHangId(Long id);
 }

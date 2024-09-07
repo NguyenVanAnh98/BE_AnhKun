@@ -25,5 +25,6 @@ public class TinhTienRequestDTO {
     private LocalDate startDate;
     private LocalDate endDate;
     private Integer tyGiaTuan;
+    private Integer chungchi;
 
 }
