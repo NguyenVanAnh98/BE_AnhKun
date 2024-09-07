@@ -45,11 +45,11 @@ public class TinhTienController {
         tinhTienService.saveOrUpdateTinhTien(tinhTienRequestDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    @GetMapping("/{id}/kh")
-    public ResponseEntity<TinhTien> getKhachHangTinhTien(@PathVariable Long id){
-        TinhTien tinhTien =  tinhTienService.findTienConlaiByKhachHangId(id);
-        return ResponseEntity.ok(tinhTien);
-    }
+//    @GetMapping("/{id}/kh")
+//    public ResponseEntity<TinhTien> getKhachHangTinhTien(@PathVariable Long id){
+//        TinhTien tinhTien =  tinhTienService.findTienConlaiByKhachHangId(id);
+//        return ResponseEntity.ok(tinhTien);
+//    }
 
     // Xóa một TinhTien theo ID
     @DeleteMapping("/delete/{id}")
@@ -57,5 +57,13 @@ public class TinhTienController {
         tinhTienService.deleteTinhTien(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("{id}/kh")
+    public ResponseEntity<?> findTopTinhTinhByKhId(@PathVariable Long id){
 
+        return new ResponseEntity<>(tinhTienService.findTopTinhTienByKhachHangid(id),HttpStatus.OK);
+    }
+    @GetMapping("{id}/kh/{date}")
+    public ResponseEntity<?> findAllTinhTienbyDateandKH(@PathVariable LocalDate date,@PathVariable Long id){
+        return new ResponseEntity<>(tinhTienService.findAllTinhTienByNgayDauTuanAndKhachHang(date, id),HttpStatus.OK);
+    }
 }

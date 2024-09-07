@@ -23,6 +23,7 @@ public class KhachHangDTO {
     private Integer giaGame;
     private List<TinhTienDTO> tinhtien;
 
+
     }
 
 

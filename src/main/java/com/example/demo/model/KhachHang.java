@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +33,7 @@ public class KhachHang {
     private Loai loai;
 
     @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<TinhTien> tinhTiens;
 
 
@@ -42,6 +46,7 @@ public class KhachHang {
 
 
     @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<TheoXuKhach> theoXuKhachs;
 
 
