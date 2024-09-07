@@ -117,5 +117,19 @@ public class TinhTienService implements ITinhTienService {
         return tinhTienRepository.findTopDTOByKhachHangId(id);
     }
 
+    @Override
+    public TinhTien findTienConlaiByKhachHangId(Long id) {
+        return null;
+    }
 
+    @Override
+    public List<TinhTienDTO> findAllTinhTienByNgayDauTuanAndKhachHang(LocalDate date, Long id) {
+        List<TinhTien> tinhTiens = tinhTienRepository.findAllByNgayDauTuanAndKhachHang(date, khachHangRepository.findById(id).get());
+        List<TinhTienDTO> tinhTienDTOS = new ArrayList<>();
+        for (TinhTien tt : tinhTiens){
+            TinhTienDTO t = new TinhTienDTO(tt);
+            tinhTienDTOS.add(t);
+        }
+        return tinhTienDTOS;
+    }
 }

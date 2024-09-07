@@ -4,6 +4,7 @@ package com.example.demo.controller;
 import com.example.demo.model.KhachHang;
 import com.example.demo.model.Loai;
 import com.example.demo.model.TheoXuKhach;
+import com.example.demo.model.TinhTien;
 import com.example.demo.model.dto.req.KhachHangRequestDTO;
 import com.example.demo.model.dto.res.KhachHangResponseDTO;
 import com.example.demo.service.IKhachHangService;
@@ -130,4 +131,5 @@ public class KhachHangController {
     public List<KhachHangResponseDTO> getKhachHangSbo() {
         return khachHangService.findKhachHangByLoai("SBO");
     }
+
 }

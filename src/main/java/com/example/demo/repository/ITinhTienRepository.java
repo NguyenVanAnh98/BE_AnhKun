@@ -20,4 +20,5 @@ public interface ITinhTienRepository extends JpaRepository<TinhTien, Long> {
             "from TinhTien t where t.khachHang.id = :khachhangID and t.id = (select max(t2.id) from TinhTien t2 where t2.khachHang.id = :khachhangID)")
     TinhTienDTO findTopDTOByKhachHangId(@Param("khachhangID") Long id);
 
+    List<TinhTien> findAllByNgayDauTuanAndKhachHang(LocalDate date, KhachHang khachHang);
 }

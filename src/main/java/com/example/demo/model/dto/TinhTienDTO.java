@@ -55,6 +55,6 @@ public class TinhTienDTO {
         this.chungChi = tinhTien.getChungChi();
         this.conLai = tinhTien.getConLai();
         this.comm = tinhTien.getComm();
-        this.khachHang = null;  // Lưu đối tượng KhachHang
+        this.khachHang = tinhTien.getKhachHang();  // Lưu đối tượng KhachHang
     }
 }

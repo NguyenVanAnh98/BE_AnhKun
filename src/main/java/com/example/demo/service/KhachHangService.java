@@ -2,8 +2,10 @@ package com.example.demo.service;
 
 import com.example.demo.model.KhachHang;
 
+import com.example.demo.model.TinhTien;
 import com.example.demo.model.dto.res.KhachHangResponseDTO;
 import com.example.demo.repository.IKhachHangRepository;
+import com.example.demo.repository.ITinhTienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,8 @@ import java.util.stream.Collectors;
 public class KhachHangService implements IKhachHangService {
     @Autowired
     private IKhachHangRepository khachHangRepository;
-
+    @Autowired
+    private ITinhTienRepository iTinhTienRepository;
 
     @Override
     public KhachHang save(KhachHang khachHang) {
@@ -42,6 +45,7 @@ public class KhachHangService implements IKhachHangService {
                 .map(KhachHangResponseDTO::new)
                 .collect(Collectors.toList());
     }
+
 
 
 
