@@ -31,7 +31,8 @@ public class TinhTienDTO {
     private Double tongCongKhachHang;
     private Double tongCongCty;
     private Integer chungChi;
-    private Integer conLai;
+    private Double conLai;
+    private Double tienCu;
     private Double comm;
     private KhachHang khachHang;
     public TinhTienDTO(){};
@@ -55,6 +56,7 @@ public class TinhTienDTO {
         this.chungChi = tinhTien.getChungChi();
         this.conLai = tinhTien.getConLai();
         this.comm = tinhTien.getComm();
+        this.tienCu = tinhTien.getTienCu();
         this.khachHang = tinhTien.getKhachHang();  // Lưu đối tượng KhachHang
     }
 }

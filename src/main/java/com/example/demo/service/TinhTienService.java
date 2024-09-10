@@ -1,11 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.model.KhachHang;
-import com.example.demo.model.TinhTien;
+import com.example.demo.model.*;
+import com.example.demo.model.dto.ChungChi;
 import com.example.demo.model.dto.TinhTienDTO;
 import com.example.demo.model.dto.req.TinhTienRequestDTO;
 import com.example.demo.repository.IKhachHangRepository;
 
+import com.example.demo.repository.INguoiTheoRepository;
 import com.example.demo.repository.ITinhTienRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class TinhTienService implements ITinhTienService {
     private ITinhTienRepository tinhTienRepository;
     @Autowired
     private IKhachHangRepository khachHangRepository;
+    @Autowired
+    private INguoiTheoRepository nguoiTheoRepository;
 
     @Override
     public List<TinhTien> getAllTinhTien() {
@@ -37,6 +40,8 @@ public class TinhTienService implements ITinhTienService {
         List<TinhTien> tinhTien1 = tinhTienRepository.findAll();
         for (TinhTienRequestDTO tinhTienRequestDTO : tinhTienRequestDTO1) {
             TinhTien tinhTien = new TinhTien();
+            TinhTienDTO tinhTienDTO1 = tinhTienRepository.findTopDTOByKhachHangId(tinhTienRequestDTO.getIdKH());
+             tinhTien.setTienCu(tinhTienDTO1 == null ? 0.0 : tinhTienDTO1.getConLai());
             tinhTien.setNgayDauTuan(tinhTienRequestDTO.getStartDate());
             tinhTien.setNgayCuoiTuan(tinhTienRequestDTO.getEndDate());
             KhachHang khachHang = khachHangRepository.findById(tinhTienRequestDTO.getIdKH()).get();
@@ -52,9 +57,9 @@ public class TinhTienService implements ITinhTienService {
             tinhTien.setCoBanhKhachHang(tinhTienRequestDTO.getCoBanh());
             tinhTien.setCoGameKhachHang(tinhTienRequestDTO.getCoGame());
             tinhTien.setTongCongBanh(Double.valueOf
-                    (tinhTienRequestDTO.getAnThua() * khachHang.getGiaDo() +
-                            tinhTienRequestDTO.getCoBanh() * khachHang.getGiaDo() * khachHang.getGiaBanh() +
-                            tinhTienRequestDTO.getCoGame() * khachHang.getGiaDo() * khachHang.getGiaGame()
+                    (tinhTienRequestDTO.getAnThua() * khachHang.getGiaDo()*1000 +
+                            tinhTienRequestDTO.getCoBanh() * khachHang.getGiaDo() * khachHang.getGiaBanh()/1000 +
+                            tinhTienRequestDTO.getCoGame() * khachHang.getGiaDo() * khachHang.getGiaGame()/1000
                     ));
             tinhTien.setTiSoKhachHang(tinhTienRequestDTO.getTiSo());
             tinhTien.setSoDeKhachHang(tinhTienRequestDTO.getSoDe());
@@ -67,11 +72,13 @@ public class TinhTienService implements ITinhTienService {
                             tinhTienRequestDTO.getSoDe() +
                             tinhTienRequestDTO.getTiSo()
             ));
+            tinhTien.setConLai(tinhTienDTO1 == null ? 0.0 : tinhTienDTO1.getConLai() +tinhTien.getTongCongKhachHang());
             tinhTien.setComm(tinhTienRequestDTO.getComm());
             tinhTien.setTongCongCty(Double.valueOf(
                     (tinhTienRequestDTO.getComm() + tinhTienRequestDTO.getAnThua()) *
                             tinhTienRequestDTO.getTyGiaTuan() * khachHang.getLoai().getPhanTram() / 100
             ));
+            tinhTien.setTyGiaTuan(tinhTienRequestDTO.getTyGiaTuan());
             tinhTienRepository.save(tinhTien);
             tinhTien1.add(tinhTien);
         }
@@ -132,4 +139,23 @@ public class TinhTienService implements ITinhTienService {
         }
         return tinhTienDTOS;
     }
-}
+
+    @Override
+    public void saveChungChi(ChungChi chungchi, Long id) {
+        TinhTienDTO tinhTienDTO1 = tinhTienRepository.findTopDTOByKhachHangId(id);
+        TinhTien tinhTien2 = tinhTienRepository.findById(tinhTienDTO1.getId()).orElseThrow(() -> new RuntimeException("TinhTien not found"));
+
+
+
+        // Cập nhật các giá trị cho tinhTien2
+        tinhTien2.setChungChi(chungchi.getChungchi() + (tinhTienDTO1.getChungChi() == null ? 0: tinhTienDTO1.getChungChi()));
+        tinhTien2.setConLai( tinhTienDTO1.getTongCongKhachHang() - chungchi.getChungchi() - (tinhTienDTO1.getChungChi() == null ? 0: tinhTienDTO1.getChungChi()));
+
+        // Lưu lại thay đổi vào repository
+        tinhTienRepository.save(tinhTien2);
+    }
+
+
+
+    }
+
