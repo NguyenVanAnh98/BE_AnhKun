@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,15 +18,16 @@ public class TinhTienNguoiTheo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Double tienCuNguoiTheo;
+    private Double chungChiNguoiTheo;
+    private Double tienConLaiNguoiTheo;
+    private LocalDate ngayTinhTien;
+    private LocalDate ngayKetThuc;
+    private Double thanhTienNguoiTheo;
+
 
     @ManyToOne
     @JoinColumn(name = "nguoiTheo_id", referencedColumnName = "id")
     private NguoiTheo nguoiTheo;
 
-
-
-    @ManyToOne
-    @JoinColumn(name = "tinhTien_id", referencedColumnName = "id")
-    private TinhTien tinhTien;
-    private Integer xuTheo;
 }

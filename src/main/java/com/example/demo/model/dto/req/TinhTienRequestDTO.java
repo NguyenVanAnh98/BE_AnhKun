@@ -24,7 +24,7 @@ public class TinhTienRequestDTO {
     private Double comm;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Integer tyGiaTuan;
+    private Double tyGiaTuan;
     private Integer chungchi;
 
 }

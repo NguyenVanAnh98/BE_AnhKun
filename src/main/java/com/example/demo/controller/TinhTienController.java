@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.TinhTien;
+import com.example.demo.model.dto.ChungChi;
+import com.example.demo.model.dto.TinhTienDTO;
 import com.example.demo.model.dto.req.TinhTienRequestDTO;
 import com.example.demo.model.dto.res.KhachHangResponseDTO;
 import com.example.demo.service.ITinhTienService;
@@ -65,5 +67,10 @@ public class TinhTienController {
     @GetMapping("{id}/kh/{date}")
     public ResponseEntity<?> findAllTinhTienbyDateandKH(@PathVariable LocalDate date,@PathVariable Long id){
         return new ResponseEntity<>(tinhTienService.findAllTinhTienByNgayDauTuanAndKhachHang(date, id),HttpStatus.OK);
+    }
+    @PutMapping("{id}/kh")
+    public ResponseEntity<?> UpdateTinhTienKhachHangId(@PathVariable Long id,@RequestBody ChungChi chungchi){
+        tinhTienService.saveChungChi(chungchi, id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
