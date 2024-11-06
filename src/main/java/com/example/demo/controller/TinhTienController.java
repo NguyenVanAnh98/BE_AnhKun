@@ -42,9 +42,9 @@ public class TinhTienController {
     }
 
     // Tạo mới hoặc cập nhật một TinhTien
-    @PostMapping("/save")
-    public ResponseEntity<List<TinhTien>> saveOrUpdateTinhTien(@RequestBody List<TinhTienRequestDTO> tinhTienRequestDTO) {
-        tinhTienService.saveOrUpdateTinhTien(tinhTienRequestDTO);
+    @PostMapping("/save/{startDate}/{endDate}")
+    public ResponseEntity<List<TinhTien>> saveOrUpdateTinhTien(@RequestBody List<TinhTienRequestDTO> tinhTienRequestDTO ,@PathVariable LocalDate startDate,@PathVariable LocalDate endDate) {
+        tinhTienService.saveOrUpdateTinhTien(tinhTienRequestDTO, startDate, endDate);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 //    @GetMapping("/{id}/kh")

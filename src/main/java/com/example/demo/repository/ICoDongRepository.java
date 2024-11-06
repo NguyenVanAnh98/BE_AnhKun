@@ -1,4 +1,9 @@
 package com.example.demo.repository;
 
-public interface ICoDongRepository {
+import com.example.demo.model.CoDong;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ICoDongRepository extends JpaRepository <CoDong, Long> {
 }

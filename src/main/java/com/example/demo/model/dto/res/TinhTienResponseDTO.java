@@ -25,6 +25,7 @@ public class TinhTienResponseDTO {
 
     private String nguoiTheoName;
     private String khachHangName;
+    private Double tienLoiLo;
     private String loaiName;
 
 

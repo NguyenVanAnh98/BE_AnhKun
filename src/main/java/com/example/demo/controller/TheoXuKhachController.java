@@ -40,10 +40,13 @@ public class TheoXuKhachController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TheoXuKhachResponseDTO> getTheoXuKhachById(@PathVariable Long id) {
+    public ResponseEntity<?> getTheoXuKhachById(@PathVariable Long id) {
         Optional<TheoXuKhach> theoXuKhachOptional = theoXuKhachService.findById(id);
-        return theoXuKhachOptional.map(theoXuKhach -> ResponseEntity.ok(new TheoXuKhachResponseDTO(theoXuKhach)))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        if (!theoXuKhachOptional.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        List<TheoXuKhach> theoXuKhachList = theoXuKhachService.findAllByIdNguoiTheo(id);
+        return new ResponseEntity<>(theoXuKhachList, HttpStatus.OK);
     }
 
     @GetMapping

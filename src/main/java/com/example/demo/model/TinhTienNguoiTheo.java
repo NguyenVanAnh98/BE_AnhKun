@@ -18,16 +18,17 @@ public class TinhTienNguoiTheo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Double tienCuNguoiTheo;
-    private Double chungChiNguoiTheo;
-    private Double tienConLaiNguoiTheo;
+//    private Double tienCuNguoiTheo;
+//    private Integer chungChiNguoiTheo;
+//    private Double tienConLaiNguoiTheo;
     private LocalDate ngayTinhTien;
     private LocalDate ngayKetThuc;
     private Double thanhTienNguoiTheo;
+//    private Double tongTienNguoiTheo;
 
 
     @ManyToOne
     @JoinColumn(name = "nguoiTheo_id", referencedColumnName = "id")
     private NguoiTheo nguoiTheo;
-
+    private Long idKhachHang;
 }

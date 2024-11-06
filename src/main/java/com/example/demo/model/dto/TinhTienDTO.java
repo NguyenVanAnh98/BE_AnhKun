@@ -18,11 +18,15 @@ public class TinhTienDTO {
     private LocalDate ngayDauTuan;
     private LocalDate ngayCuoiTuan;
     private Double tyGiaTuan;
+    private Integer giaDo;
+    private Integer giaBanh;
+    private Integer giaGame;
+
     private Double thanhtienIBet;
     private Double thanhtienSBo;
-    private Integer anThuaKhachHang;
-    private Integer coBanhKhachHang;
-    private Integer coGameKhachHang;
+    private Double anThuaKhachHang;
+    private Double coBanhKhachHang;
+    private Double coGameKhachHang;
     private Double tongCongBanh;
     private Integer tiSoKhachHang;
     private Integer soDeKhachHang;
@@ -35,6 +39,7 @@ public class TinhTienDTO {
     private Double tienCu;
     private Double comm;
     private KhachHang khachHang;
+    private Double tienLoiLo;
     public TinhTienDTO(){};
     public TinhTienDTO(TinhTien tinhTien) {  // Sửa constructor để bao gồm KhachHang
         this.id = tinhTien.getId();
@@ -58,5 +63,9 @@ public class TinhTienDTO {
         this.comm = tinhTien.getComm();
         this.tienCu = tinhTien.getTienCu();
         this.khachHang = tinhTien.getKhachHang();  // Lưu đối tượng KhachHang
+        this.tienLoiLo = tinhTien.getTienLoiLo();
+        this.giaBanh = tinhTien.getGiaBanh();
+        this.giaDo = tinhTien.getGiaDo();
+        this.giaGame = tinhTien.getGiaGame();
     }
 }

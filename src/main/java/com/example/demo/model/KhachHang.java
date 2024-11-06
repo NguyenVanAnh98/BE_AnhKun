@@ -48,6 +48,9 @@ public class KhachHang {
     @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<TheoXuKhach> theoXuKhachs;
+    @OneToMany(mappedBy = "khachHang", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<PhanTramCoDong> phanTramCoDongs;
 
 
 

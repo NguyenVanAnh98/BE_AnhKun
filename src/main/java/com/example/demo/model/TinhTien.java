@@ -23,17 +23,15 @@ public class TinhTien {
     private Long id;
     private LocalDate ngayDauTuan;
     private LocalDate ngayCuoiTuan;
-
     private Double tyGiaTuan;
     private Double thanhtienIBet;
     private Double thanhtienSBo;
-
-    private Integer anThuaKhachHang;
-
-    private Integer coBanhKhachHang;
-
-    private Integer coGameKhachHang;
-
+    private Integer giaDo;
+    private Integer giaBanh;
+    private Integer giaGame;
+    private Double anThuaKhachHang;
+    private Double coBanhKhachHang;
+    private Double coGameKhachHang;
     private Double tongCongBanh;
     private Integer tiSoKhachHang;
     private Integer soDeKhachHang;
@@ -44,8 +42,7 @@ public class TinhTien {
     private Integer chungChi;
     private Double conLai;
     private Double tienCu;
-
-
+    private Double tienLoiLo;
     private Double comm;
 
 

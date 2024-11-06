@@ -22,6 +22,7 @@ public class KhachHangDTO {
     private Integer giaBanh;
     private Integer giaGame;
     private List<TinhTienDTO> tinhtien;
+    private Integer phanTramTheo;
 
 
     }

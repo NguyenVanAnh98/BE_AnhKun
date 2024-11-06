@@ -18,5 +18,6 @@ public class KhachHangRequestDTO {
     private Integer giaGame;
     private Double tyLe;  // Thêm trường tỷ lệ phần trăm
     private List<TheoXuKHReqDTO> theoXuKHReqDTOS;  // Thay đổi nếu cần
+    private List<PhanTramCoDongReqDTO> phanTramCoDongReqDTOS;  // Thay đổi nếu cần>
 }
 

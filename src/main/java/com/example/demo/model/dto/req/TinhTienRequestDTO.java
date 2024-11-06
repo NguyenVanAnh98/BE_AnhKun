@@ -13,9 +13,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class TinhTienRequestDTO {
     private Long id;
-    private Integer anThua;
-    private Integer coBanh;
-    private Integer coGame;
+    private Double anThua;
+    private Double coBanh;
+    private Double coGame;
     private Integer tiSo;
     private Integer soDe;
     private Integer tienUng;
@@ -26,5 +26,6 @@ public class TinhTienRequestDTO {
     private LocalDate endDate;
     private Double tyGiaTuan;
     private Integer chungchi;
+    private Double tienCu;
 
 }

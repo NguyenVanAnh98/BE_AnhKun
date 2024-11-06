@@ -16,6 +16,7 @@ public interface IKhachHangRepository extends JpaRepository<KhachHang, Long> {
             "LEFT JOIN kh.theoXuKhachs txk " +
 //            "LEFT JOIN kh.nguoiTheos nt " +
             "LEFT JOIN kh.loai loai " +
+            "LEFT JOIN kh.phanTramCoDongs ptcd " +
             "WHERE kh.id = :khachHangId")
     List<KhachHangResponseDTO> findKhachHangDetails(@Param("khachHangId") Long khachHangId);
     List<KhachHang> findByLoai_TenLoai(String tenLoai);

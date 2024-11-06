@@ -16,7 +16,7 @@ public interface ITinhTienService {
 
     Optional<TinhTien> getTinhTienById(Long id);
 
-    List<TinhTien> saveOrUpdateTinhTien(List<TinhTienRequestDTO> tinhTienRequestDTO);
+    List<TinhTien> saveOrUpdateTinhTien(List<TinhTienRequestDTO> tinhTienRequestDTO, LocalDate startDate, LocalDate endDate);
 
     void deleteTinhTien(Long id);
     List<TinhTienDTO> findAllTinhTienByKhachHang(Long id);

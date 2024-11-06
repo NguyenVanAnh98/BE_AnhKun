@@ -1,22 +1,17 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.model.KhachHang;
-import com.example.demo.model.Loai;
-import com.example.demo.model.TheoXuKhach;
-import com.example.demo.model.TinhTien;
+import com.example.demo.model.*;
 import com.example.demo.model.dto.req.KhachHangRequestDTO;
 import com.example.demo.model.dto.res.KhachHangResponseDTO;
-import com.example.demo.service.IKhachHangService;
+import com.example.demo.service.*;
 
-import com.example.demo.service.ILoaiService;
-import com.example.demo.service.INguoiTheoService;
-import com.example.demo.service.ITheoXuKhachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.SocketOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -38,6 +33,10 @@ public class KhachHangController {
 
     @Autowired
     private ILoaiService loaiService;
+    @Autowired
+    private ICoDongService coDongService;
+    @Autowired
+    private IPhanTramCoDongService phanTramCoDongService;
 
     @PostMapping
     public ResponseEntity<KhachHangResponseDTO> createKhachHang(@RequestBody KhachHangRequestDTO requestDTO) {
@@ -77,6 +76,24 @@ public class KhachHangController {
 
             khachHang.setTheoXuKhachs(theoXuKhachs);
         }
+        if (requestDTO.getPhanTramCoDongReqDTOS() != null) {
+            List<PhanTramCoDong> phanTramCoDongs = requestDTO.getPhanTramCoDongReqDTOS().stream().map(dto -> {
+                PhanTramCoDong phanTramCoDong = new PhanTramCoDong();
+                Optional<CoDong> coDongOptional = coDongService.findById(dto.getIdCoDong());
+
+                if (coDongOptional.isPresent()) {
+                    phanTramCoDong.setCoDong(coDongOptional.get());
+                } else {
+                    throw new RuntimeException("CoDong with ID " + dto.getIdCoDong() + " not found"); // Xử lý lỗi nếu không tìm thấy cổ đông
+                }
+
+                phanTramCoDong.setPhanTramTheo(dto.getPhanTramTheo());
+                phanTramCoDong.setKhachHang(khachHang);
+                phanTramCoDongService.save(phanTramCoDong);
+                return phanTramCoDong;
+            }).collect(Collectors.toList());
+            khachHang.setPhanTramCoDongs(phanTramCoDongs);
+        }
 
 
 
@@ -100,6 +117,7 @@ public class KhachHangController {
         khachHang.setGiaDo(requestDTO.getGiaDo());
         khachHang.setGiaBanh(requestDTO.getGiaBanh());
         khachHang.setGiaGame(requestDTO.getGiaGame());
+
         // Cập nhật các thông tin khác nếu cần
 
         KhachHang updatedKhachHang = khachHangService.save(khachHang);
@@ -131,5 +149,6 @@ public class KhachHangController {
     public List<KhachHangResponseDTO> getKhachHangSbo() {
         return khachHangService.findKhachHangByLoai("SBO");
     }
+
 
 }

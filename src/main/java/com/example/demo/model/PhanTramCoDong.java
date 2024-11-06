@@ -18,7 +18,19 @@ public class PhanTramCoDong {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer phanTramTheo;  // phần trăm theo
+
+
     @ManyToOne
     @JoinColumn(name = "khachhang_id")
     private KhachHang khachHang;
+    @ManyToOne
+    @JoinColumn(name = "codong_id")
+    private CoDong coDong;
+
+    public KhachHang getKhachHang() {
+        return khachHang;
+    }
+   public void setKhachHang(KhachHang khachHang) {
+        this.khachHang = khachHang;
+    }
 }
